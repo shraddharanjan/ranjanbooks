@@ -48,9 +48,11 @@ model Account {
 model Book {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   title String
-  description String
-  authorId String
-  publisherId String?
+  plot String
+  author String
+  publisher String?
+  format String
+  audience String
   imageSrc String
   createdAt DateTime @default(now())
   category String 

@@ -1,7 +1,7 @@
 "use client";
 import useLoanModal from "@/app/hooks/useLoanModal";
 import { useMemo, useState } from "react";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { categories } from "../../navbar/Categories";
 import Modal from "./Modal";
 import Heading from "../../Heading";
@@ -9,6 +9,9 @@ import CategoryInput from "../../inputs/CategoryInput";
 import Input from "../../inputs/Input";
 import Counter from "../../inputs/Counter";
 import ImageUpload from "../../inputs/ImageUpload";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
  
 
@@ -21,6 +24,8 @@ enum STEPS {
     PRICE=5
 }
 const LoanModal = () => {
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false); 
     const loanModal = useLoanModal(); 
     const [step, setStep] = useState(STEPS.CATEGORY); 
 
@@ -45,6 +50,25 @@ const imageSrc = watch('imageSrc');
     const onNext = () => {
         setStep((value) => value + 1);
     }
+
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+        if (step !== STEPS.PRICE) {
+            return onNext(); 
+        }
+        setIsLoading(true); 
+        axios.post('/api/books', data).then(() => {
+            toast.success('Book created!');
+        router.refresh(); 
+        reset(); 
+        setStep(STEPS.CATEGORY); 
+        loanModal.onClose();
+        }).catch(() => {
+            toast.error('Something went wrong.')
+        }).finally(() => {
+            setIsLoading(false); 
+        })
+    }
+
     const actionLabel = useMemo(() => {
         if (step === STEPS.PRICE) {
             return "Create"; 
@@ -78,7 +102,7 @@ const imageSrc = watch('imageSrc');
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading title="Details of book" subtitle="What is the name of the book and author?"/> 
-                <Input id="name" label="Name of book" required register={register} errors={errors} /> 
+                <Input id="title" label="Name of book" required register={register} errors={errors} /> 
                 <Input id="author" label="Author of book" required register={register} errors={errors}/> 
                 <Input id="publisher" label="Publisher of book" register={register} errors={errors}/> 
             </div>
@@ -105,10 +129,32 @@ const imageSrc = watch('imageSrc');
         )
     }
 
+    if (step === STEPS.PLOT) {
+        bodyContent = (
+            <div className="flex flex-col gap-8">
+                <Heading title="How would you describe the plot?" 
+                subtitle="Give a short summary of what the book is about!" /> 
+                <Input id="plot" label="Plot" disabled={isLoading} 
+                register={register} errors={errors} required/>
+            </div>
+        )
+    }
+    if (step === STEPS.PRICE) {
+        bodyContent = (
+            <div className="flex flex-col gap-8">
+                <Heading title="Price of renting book" subtitle="How much
+                do you charge per day of renting the book?" />
+                <Input id="price" label="Price" formatPrice type="number"
+                disabled={isLoading} register={register} errors={errors} required  /> 
+            </div>
+        )
+    }
+
+
 
     return (
         <Modal title="Add your book" isOpen={loanModal.isOpen} 
-        onClose={loanModal.onClose} onSubmit={onNext}
+        onClose={loanModal.onClose} onSubmit={handleSubmit(onSubmit)}
         actionLabel={actionLabel} secondaryActionLabel={secondaryActionLabel}
         secondaryAction={step === STEPS.CATEGORY ? undefined : onBack } body={bodyContent}/>
     )
