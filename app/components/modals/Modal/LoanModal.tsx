@@ -7,6 +7,7 @@ import Modal from "./Modal";
 import Heading from "../../Heading";
 import CategoryInput from "../../inputs/CategoryInput";
 import Input from "../../inputs/Input";
+import Counter from "../../inputs/Counter";
 
  
 
@@ -23,12 +24,13 @@ const LoanModal = () => {
     const [step, setStep] = useState(STEPS.CATEGORY); 
 
     const {register, handleSubmit, setValue, watch, formState: {errors}, reset} = useForm<FieldValues>({defaultValues: {
-        category: '', author: '', name: '', publisher: '', format: '', audience: '',  pagesCount: 1, imageSrc: '', price: 1, 
+        category: '', author: '', name: '', publisher: '', format: '', audience: '',  pageCount: 0, imageSrc: '', price: 1, 
         plot: ''
     }}); 
 
 
 const category = watch('category'); 
+const pageCount = watch('pageCount'); 
 
         const setCustomValue = (id: string, value: any) => {
             setValue(id, value, {
@@ -81,6 +83,16 @@ const category = watch('category');
         )
     }
 
+    if (step === STEPS.INFO) {
+        bodyContent = (
+            <div className="flex flex-col gap-8">
+                <Heading title="Info about book" subtitle="More information on book"/> 
+                <Input id="format" label="Format of book" required register={register} errors={errors} /> 
+                <Input id="audience" label="Audience of book" required register={register} errors={errors}/> 
+                <Counter title="Length of book" subtitle="How many pages does your book have?" value={pageCount} onChange={(value) => setCustomValue('pageCount', value)} /> 
+            </div>
+        )
+    }
 
 
     return (
