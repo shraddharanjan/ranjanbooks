@@ -6,6 +6,7 @@ import { categories } from "../../navbar/Categories";
 import Modal from "./Modal";
 import Heading from "../../Heading";
 import CategoryInput from "../../inputs/CategoryInput";
+import Input from "../../inputs/Input";
 
  
 
@@ -28,6 +29,7 @@ const LoanModal = () => {
 
 
 const category = watch('category'); 
+
         const setCustomValue = (id: string, value: any) => {
             setValue(id, value, {
                 shouldDirty: true, shouldTouch: true, shouldValidate: true,
@@ -51,7 +53,7 @@ const category = watch('category');
         }
         return "Back"; 
     }, [step]);
-    
+
     let bodyContent = (
         <div className="flex flex-col gap-8">
             <Heading title="Which of these genres best describes the book?"
@@ -67,9 +69,23 @@ const category = watch('category');
             </div>
         </div>
     )
+
+    if (step === STEPS.DETAILS) {
+        bodyContent = (
+            <div className="flex flex-col gap-8">
+                <Heading title="Details of book" subtitle="What is the name of the book and author?"/> 
+                <Input id="name" label="Name of book" required register={register} errors={errors} /> 
+                <Input id="author" label="Author of book" required register={register} errors={errors}/> 
+                <Input id="publisher" label="Publisher of book" register={register} errors={errors}/> 
+            </div>
+        )
+    }
+
+
+
     return (
         <Modal title="Add your book" isOpen={loanModal.isOpen} 
-        onClose={loanModal.onClose} onSubmit={loanModal.onClose}
+        onClose={loanModal.onClose} onSubmit={onNext}
         actionLabel={actionLabel} secondaryActionLabel={secondaryActionLabel}
         secondaryAction={step === STEPS.CATEGORY ? undefined : onBack } body={bodyContent}/>
     )
