@@ -7,6 +7,7 @@ import ToasterProvider from "./providers/ToasterProvider";
 import RegisterModal from "./components/modals/Modal/RegisterModal";
 import LoginModal from "./components/modals/Modal/LoginModal";
 import getCurrentUser from "./actions/getCurrentUser";
+import LoanModal from "./components/modals/Modal/LoanModal";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -37,6 +38,7 @@ export default async function RootLayout({
       >
         <ClientOnly>
           <ToasterProvider />
+          <LoanModal />
           <RegisterModal /> 
           <LoginModal /> 
           <Navbar currentUser={currentUser} /> 

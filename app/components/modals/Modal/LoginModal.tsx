@@ -1,6 +1,6 @@
 "use client";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Modal from "./Modal";
@@ -42,6 +42,11 @@ const LoginModal = () => {
         }
         })
         }
+
+        const toggle = useCallback(() => {
+            loginModal.onClose(); 
+            registerModal.onOpen(); 
+        }, [loginModal, registerModal])
     
 
     const bodyContent = (
@@ -58,10 +63,10 @@ const LoginModal = () => {
             <Button outline label="Continue with GitHub" icon={AiFillGithub} onClick={() => signIn('github')} />
             <div className="text-neutral-500 text-center mt-4 font-light">
                 <div className="justify-center flex flex-row items-center gap-2">
-                    Do not have an account?
+                    First time using RanjanBooks?
                 </div>
-                <div onClick={loginModal.onClose} className="text-neutral-800 cursor-pointer hover:underline">
-                    Sign up
+                <div onClick={toggle} className="text-neutral-800 cursor-pointer hover:underline">
+                    Create an account
                 </div>
             </div>
         </div>
