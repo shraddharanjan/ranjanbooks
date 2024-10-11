@@ -86,8 +86,9 @@ const Modal = ({isOpen, onClose, onSubmit, title, body, footer, actionLabel, dis
                                 {secondaryAction && secondaryActionLabel && (
                                     <Button outline disabled={disabled} label={secondaryActionLabel} onClick={handleSubmit} />
                                 )}
-                                <Button disabled={disabled} label={actionLabel} onClick={handleSecondaryAction} />
+                                <Button disabled={disabled} label={actionLabel} onClick={handleSubmit} />
                             </div>
+                            {footer}
                         </div>
                     </div>
                 </div>

@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./components/navbar/Navbar";
 import ClientOnly from "./components/ClientOnly";
-import Modal from "./components/modals/Modal/Modal";
 import ToasterProvider from "./providers/ToasterProvider";
 import RegisterModal from "./components/modals/Modal/RegisterModal";
 
