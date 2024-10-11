@@ -4,11 +4,17 @@ import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
+import useLoginModal from "@/app/hooks/useLoginModal";
+import { signOut } from "next-auth/react";
+import { SafeUser } from "@/app/types";
 
- 
+ interface UserMenuProps {
+    currentUser?: SafeUser | null; 
+ }
 
-const UserMenu = () => {
+const UserMenu = ({currentUser}: UserMenuProps) => {
     const registerModal = useRegisterModal(); 
+    const loginModal = useLoginModal(); 
     const [isOpen, setIsOpen] = useState(false); 
     const toggleOpen = useCallback(() => {setIsOpen((value) => !(value))}, []); 
     return ( 
@@ -22,18 +28,36 @@ const UserMenu = () => {
                 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition">
                     <AiOutlineMenu />
                     <div className="hidden md:block">
-                        <Avatar/> 
+                        <Avatar src={currentUser?.image}/> 
                     </div>
                 </div>
             </div>
             {isOpen && (
                 <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
                     <div className="flex flex-col cursor-pointer">
+                        {currentUser ? (
+                            <>
+                            <MenuItem onClick={() => {}} label="My recent reads"/> 
+                            <MenuItem onClick={() => {}} label="My favorites"/> 
+                            <MenuItem onClick={() => {}} label="My reservations"/> 
+                            <MenuItem onClick={() => {}} label="My books"/> 
+                            <MenuItem onClick={() => {}} label="Add a new book"/> 
+                            <hr />
+                            <MenuItem onClick={() => signOut()} label="Logout"/>
+                            
+                        </>
+
+                        ) : (
                         <>
-                        <MenuItem onClick={() => {}} label="Login" /> 
+                        <MenuItem onClick={loginModal.onOpen} label="Login" /> 
                         <MenuItem onClick={registerModal.onOpen} label="Sign up" /> 
                         
                         </>
+
+
+                        )}
+
+                        
                     </div>
                 </div>
             )}
