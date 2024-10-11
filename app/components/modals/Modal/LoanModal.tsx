@@ -8,6 +8,7 @@ import Heading from "../../Heading";
 import CategoryInput from "../../inputs/CategoryInput";
 import Input from "../../inputs/Input";
 import Counter from "../../inputs/Counter";
+import ImageUpload from "../../inputs/ImageUpload";
 
  
 
@@ -31,6 +32,7 @@ const LoanModal = () => {
 
 const category = watch('category'); 
 const pageCount = watch('pageCount'); 
+const imageSrc = watch('imageSrc'); 
 
         const setCustomValue = (id: string, value: any) => {
             setValue(id, value, {
@@ -90,6 +92,15 @@ const pageCount = watch('pageCount');
                 <Input id="format" label="Format of book" required register={register} errors={errors} /> 
                 <Input id="audience" label="Audience of book" required register={register} errors={errors}/> 
                 <Counter title="Length of book" subtitle="How many pages does your book have?" value={pageCount} onChange={(value) => setCustomValue('pageCount', value)} /> 
+            </div>
+        )
+    }
+
+    if (step === STEPS.IMAGES) {
+        bodyContent = (
+            <div className="flex flex-col gap-8">
+                <Heading title="Add a photo of your book" subtitle="What does your book look like?" />
+                <ImageUpload value={imageSrc} onChange={(value) => setCustomValue('imageSrc', value)} />
             </div>
         )
     }
