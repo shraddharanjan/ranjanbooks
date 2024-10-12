@@ -5,8 +5,7 @@ import BookReservation from "@/app/components/books/BookReservation";
 import Container from "@/app/components/Container";
 import { categories } from "@/app/components/navbar/Categories";
 import useLoginModal from "@/app/hooks/useLoginModal";
-import { SafeBook, SafeUser } from "@/app/types";
-import { Reservation } from "@prisma/client";
+import { SafeBook, SafeReservation, SafeUser } from "@/app/types";
 import axios from "axios";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { useRouter } from "next/navigation";
@@ -21,7 +20,7 @@ const initialDateRange = {
 };
 
 interface BookClientProps {
-    reservations?: Reservation[]; 
+    reservations?: SafeReservation[]; 
     book: SafeBook & {user: SafeUser}; 
     currentUser?: SafeUser | null; 
 }
