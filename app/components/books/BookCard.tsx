@@ -1,6 +1,5 @@
 "use client"; 
-import { SafeBook, SafeUser } from "@/app/types";
-import { Reservation } from "@prisma/client";
+import { SafeBook, SafeReservation, SafeUser } from "@/app/types";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import {format} from "date-fns"; 
@@ -9,7 +8,7 @@ import HeartButton from "../HeartButton";
 import Button from "../Button";
 interface BookCardProps {
     data: SafeBook;
-    reservation?: Reservation; 
+    reservation?: SafeReservation; 
     onAction?: (id: string) => void; 
     disabled?: boolean;
     actionLabel?: string; 

@@ -53,7 +53,7 @@ const BookClient: React.FC<BookClientProps> = ({book, reservations = [], current
         }).then(() => {
             toast.success("Listing reserved!"); 
             setDateRange(initialDateRange); 
-            router.refresh(); 
+            router.push("/reads"); 
         }).catch(() => {
             toast.error("Something went wrong")
         }).finally(() => {
