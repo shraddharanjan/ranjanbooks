@@ -5,8 +5,11 @@ import ClientOnly from "./components/ClientOnly";
 import Container from "./components/Container";
 import EmptyState from "./components/EmptyState";
 
-export default async function Home() {
-  const books = await getBooks(); 
+interface HomeProps {
+  searchParams: IListingParams
+}
+const Home = async({searchParams}: HomeProps) => {
+  const books = await getBooks(searchParams); 
   const currentUser = await getCurrentUser(); 
 
   const isEmpty = true;
@@ -35,3 +38,5 @@ export default async function Home() {
 
   );
 }
+
+export default Home; 
