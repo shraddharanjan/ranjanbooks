@@ -50,7 +50,7 @@ const UserMenu = ({currentUser}: UserMenuProps) => {
                         {currentUser ? (
                             <>
                             <MenuItem onClick={() => router.push('/reads')} label="My recent reads"/> 
-                            <MenuItem onClick={() => {}} label="My favorites"/> 
+                            <MenuItem onClick={() => router.push('/favorites')} label="My favorites"/> 
                             <MenuItem onClick={() => router.push('/reservations')} label="My reservations"/> 
                             <MenuItem onClick={() => {}} label="My books"/> 
                             <MenuItem onClick={loanModal.onOpen} label="Add a new book"/> 
