@@ -16,11 +16,11 @@ export async function DELETE(
     if (!bookId || typeof bookId !== 'string') {
         throw new Error("Invalid ID"); 
     }
-    const listing = await prisma.book.deleteMany({
+    const book = await prisma.book.deleteMany({
         where: {
             id: bookId, 
             userId: currentUser.id
         }
     });
-    return NextResponse.json(listing); 
+    return NextResponse.json(book); 
 }
