@@ -3,16 +3,26 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-
-
 const Logo = () => {
-    const router = useRouter(); 
-    return ( 
-    <div>
-        <Image onClick={() => router.push('/')} alt="Logo" src="/images/logo.png" className="hidden md:block cursor-pointer"
-        height="100" width="100" /> 
+  const router = useRouter();
 
-    </div> );
-}
- 
+  return (
+    <button
+      type="button"
+      onClick={() => router.push("/")}
+      className="hidden shrink-0 md:block"
+      aria-label="Go to homepage"
+    >
+      <Image
+        src="/images/logo.png"
+        alt="Ranjan Books"
+        width={72}
+        height={72}
+        className="h-[72px] w-[72px] object-contain"
+        priority
+      />
+    </button>
+  );
+};
+
 export default Logo;

@@ -13,7 +13,7 @@ interface NavbarProps {
 const Navbar = ({currentUser}: NavbarProps) => {
     return ( 
     <div className="fixed bg-white z-10 shadow-sm w-full" >
-        <div className=" py-4 border-b-[1px]">
+        <div className="border-b border-neutral-200 py-2">
             <Container> 
                 <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
                     <Logo /> 
