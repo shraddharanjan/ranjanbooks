@@ -11,7 +11,7 @@ interface BookInfoProps {
     plot: string; 
     audience: string; 
     format: string;
-    publisher: string | undefined; 
+    publisher?: string | null; 
     pageCount: number;
     category: {
         icon: IconType;
