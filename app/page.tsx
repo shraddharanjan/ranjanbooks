@@ -1,12 +1,14 @@
-import getBooks from "./actions/getBooks";
+import getBooks, { IBookParams } from "./actions/getBooks";
 import getCurrentUser from "./actions/getCurrentUser";
 import BookCard from "./components/books/BookCard";
 import ClientOnly from "./components/ClientOnly";
 import Container from "./components/Container";
 import EmptyState from "./components/EmptyState";
 
+export const dynamic = "force-dynamic";
+
 interface HomeProps {
-  searchParams: IListingParams;
+  searchParams: IBookParams;
 }
 
 const Home = async ({ searchParams }: HomeProps) => {

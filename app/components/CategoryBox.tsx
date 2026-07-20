@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { IconType } from "react-icons";
-import qs from "query-string";
+import qs, { type StringifiableRecord } from "query-string";
 
 interface CategoryBoxProps {
   icon: IconType;
@@ -20,13 +20,13 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
   const params = useSearchParams();
 
   const handleClick = useCallback(() => {
-    let currentQuery = {};
+    let currentQuery: StringifiableRecord = {};
 
     if (params) {
       currentQuery = qs.parse(params.toString());
     }
 
-    const updatedQuery: Record<string, unknown> = {
+    const updatedQuery: StringifiableRecord = {
       ...currentQuery,
       category: label,
     };
