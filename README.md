@@ -8,8 +8,6 @@ Users can browse books by category, view detailed listings, save favourites, add
 
 Open the live RanjanBooks app: https://ranjanbooks-lemon.vercel.app/
 
-> If your production URL is different, replace the link above with the URL shown in your Vercel project dashboard.
-
 ## ✨ Features
 
 - 📖 Browse available books
