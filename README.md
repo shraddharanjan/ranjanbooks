@@ -1,60 +1,74 @@
-# RanjanBooks
+# 📚 RanjanBooks
 
-Ranjan Books is a book-sharing and lending marketplace built with Next.js. Users can browse books by category, view book details, save favourites, add listings, and reserve books for selected dates.
+A modern book-sharing and lending marketplace built with Next.js.
 
-## Features
+Users can browse books by category, view detailed listings, save favourites, add their own books, and reserve books for selected dates.
 
-- Browse available books
-- Filter books by category
-- Search by format, author, and length
-- View detailed book information
-- Save books to favourites
-- Add new book listings
-- Reserve books by date
-- View current and previous reservations
-- Responsive design for desktop, tablet, and mobile
-- Authentication with NextAuth
-- MongoDB database access through Prisma
+## 🌐 Live Demo
 
-## Tech stack
+Open the live RanjanBooks app: https://ranjanbooks-lemon.vercel.app/
 
-- [Next.js](https://nextjs.org/)
-- [React](https://react.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Prisma](https://www.prisma.io/)
-- [MongoDB Atlas](https://www.mongodb.com/atlas)
-- [NextAuth.js](https://next-auth.js.org/)
-- [Axios](https://axios-http.com/)
-- [date-fns](https://date-fns.org/)
-- [React Icons](https://react-icons.github.io/react-icons/)
-- [React Hot Toast](https://react-hot-toast.com/)
+> If your production URL is different, replace the link above with the URL shown in your Vercel project dashboard.
 
-## Getting started
+## ✨ Features
 
-### Prerequisites
+- 📖 Browse available books
+- 🗂️ Filter books by category
+- 🔎 Search by title, author, format, publisher, audience, and length
+- 📝 View detailed book information
+- ❤️ Save books to favourites
+- ➕ Add new book listings
+- 📅 Reserve books for selected dates
+- 📚 View current and previous reservations
+- 📱 Responsive design for desktop, tablet, and mobile
+- 🔐 Authentication with NextAuth
+- 🗄️ MongoDB database access through Prisma
+- ☁️ Image hosting through Cloudinary
+
+## 🛠️ Tech Stack
+
+- ⚡ Next.js
+- ⚛️ React
+- 🔷 TypeScript
+- 🎨 Tailwind CSS
+- ▲ Vercel
+- 🧩 Prisma
+- 🍃 MongoDB Atlas
+- 🔐 NextAuth.js
+- 🌐 Axios
+- 📆 date-fns
+- 🎭 React Icons
+- 🔔 React Hot Toast
+
+## 🚀 Getting Started
+
+### ✅ Prerequisites
 
 Install the following before running the project:
 
 - Node.js 18 or newer
 - npm
-- A MongoDB Atlas database
 - Git
+- A MongoDB Atlas database
+- A Cloudinary account
+- Authentication-provider credentials, when required
 
-### Clone the repository
+### 📥 Clone the Repository
 
 ```bash
 git clone git@github.com:shraddharanjan/ranjanbooks.git
 cd ranjanbooks
 ```
 
-### Install dependencies
+### 📦 Install Dependencies
 
 ```bash
 npm install
 ```
 
-### Configure environment variables
+The project includes a `postinstall` script that generates the Prisma Client automatically.
+
+### 🔐 Configure Environment Variables
 
 Create a `.env` file in the project root:
 
@@ -65,7 +79,7 @@ NEXTAUTH_URL="http://localhost:3000"
 NEXTAUTH_SECRET="replace-with-a-secure-random-secret"
 ```
 
-Add any additional authentication-provider or image-hosting credentials required by your local configuration.
+Add any additional variables required by the authentication providers and Cloudinary configuration used by the project.
 
 Generate a secure NextAuth secret with:
 
@@ -73,9 +87,9 @@ Generate a secure NextAuth secret with:
 openssl rand -base64 32
 ```
 
-Never commit `.env` files or real credentials to Git.
+> ⚠️ Never commit `.env` files or real credentials to Git.
 
-### Generate the Prisma client
+### 🧩 Generate the Prisma Client
 
 ```bash
 npx prisma generate
@@ -87,7 +101,7 @@ To verify the database connection:
 npx prisma db pull
 ```
 
-### Start the development server
+### 💻 Start the Development Server
 
 ```bash
 npm run dev
@@ -95,33 +109,39 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Available scripts
+## 📜 Available Scripts
+
+### Start development mode
 
 ```bash
 npm run dev
 ```
 
-Starts the development server.
+### Create a production build
 
 ```bash
 npm run build
 ```
 
-Creates a production build.
+### Run the production build
 
 ```bash
 npm run start
 ```
 
-Runs the production build.
+### Run lint checks
 
 ```bash
 npm run lint
 ```
 
-Checks the project for linting issues.
+### Generate Prisma Client
 
-## Project structure
+```bash
+npm run postinstall
+```
+
+## 🗂️ Project Structure
 
 ```text
 app/
@@ -131,8 +151,13 @@ app/
 ├── components/
 │   ├── books/               # Book cards, details, and reservations
 │   ├── navbar/              # Navigation, search, and categories
-│   └── ...
+│   ├── inputs/              # Form and upload inputs
+│   └── modals/              # Login, registration, search, and loan modals
 ├── hooks/                   # Reusable React hooks
+├── library/                 # User-created book listings
+├── favorites/               # Saved books
+├── reads/                   # Borrowed books
+├── reservations/            # Reservations for owned books
 ├── types/                   # Shared TypeScript types
 ├── favicon.ico
 ├── layout.tsx
@@ -145,49 +170,80 @@ public/
 └── images/
 ```
 
-## Database
+## 🗄️ Database
 
 The application uses MongoDB through Prisma.
 
-After changing `prisma/schema.prisma`, regenerate the Prisma client:
+After changing `prisma/schema.prisma`, regenerate the Prisma Client:
 
 ```bash
 npx prisma generate
 ```
 
-For MongoDB, avoid running relational migration commands such as `prisma migrate dev`. Use Prisma's MongoDB-compatible workflows instead.
+For MongoDB, avoid relational migration commands such as:
 
-## Security
+```bash
+npx prisma migrate dev
+```
+
+Use Prisma workflows that support MongoDB instead.
+
+## 🔒 Security
 
 - Keep `.env` in `.gitignore`
 - Never commit database passwords, OAuth secrets, or API keys
 - Rotate credentials immediately if they are exposed
-- Restrict MongoDB Atlas network access to trusted IP addresses
+- Restrict MongoDB Atlas network access where practical
 - Use a strong `NEXTAUTH_SECRET` in production
+- Store production variables in Vercel Environment Variables
+- Avoid placing secrets in client-side code
 
-## Deployment
+## ▲ Deployment
 
-The project can be deployed to platforms that support Next.js, such as Vercel.
+The project is deployed with Vercel.
 
 Before deploying:
 
-1. Add all required environment variables to the hosting provider.
+1. Add all required environment variables in Vercel.
 2. Ensure the MongoDB Atlas cluster is running.
-3. Allow the deployment platform to connect to MongoDB Atlas.
-4. Run a production build locally:
+3. Permit connections from the deployment environment.
+4. Confirm the Prisma Client is generated during installation.
+5. Run a production build locally:
 
 ```bash
 npm run build
 ```
 
-## Roadmap
+Push the latest changes:
+
+```bash
+git add .
+git commit -m "Update application"
+git push
+```
+
+Vercel will automatically deploy the connected `main` branch.
+
+## 🛣️ Roadmap
 
 Potential future improvements include:
 
-- Improved search and sorting
-- Pagination or infinite scrolling
-- User reviews and ratings
-- Location-based book discovery
-- Messaging between lenders and borrowers
-- Reservation notifications
-- Better accessibility and keyboard navigation
+- 🔍 Improved search, sorting, and filtering
+- ♾️ Pagination or infinite scrolling
+- ⭐ User reviews and ratings
+- 📍 Location-based book discovery
+- 💬 Messaging between lenders and borrowers
+- 🔔 Reservation notifications
+- ♿ Improved accessibility and keyboard navigation
+- 🧪 Automated testing
+- 📊 User and listing analytics
+
+## 🤝 Contributing
+
+Contributions, suggestions, and bug reports are welcome.
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push the branch
+5. Open a pull request
